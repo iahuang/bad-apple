@@ -2,7 +2,7 @@
 
 A Javascript implementation of the famous music video for the song featured in *Touhou*
 
-![Screenshot2](https://github.com/iahuang/bad-apple/raw/main/res/screenshot2.png)
+![Screenshot2](https://github.com/iahuang/bad-apple/raw/main/res/sc.png)
 
 ## Usage
 
