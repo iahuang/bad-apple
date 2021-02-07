@@ -2,6 +2,8 @@
 
 A Javascript implementation of the famous music video for the song featured in *Touhou*
 
+
+
 ## Usage
 
 To compile a version of the playback script configured for your current terminal size, run
