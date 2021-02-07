@@ -88,7 +88,8 @@ let newDims = {
     height: termDims.rows,
 };
 
-// ffmpeg requires that scale height be divisble by 2
+// ffmpeg requires that width and height be divisble by 2
+newDims.width -= newDims.width % 2;
 newDims.height -= newDims.height % 2;
 
 const SCALED_VIDEO = "tmp/_video.mp4";
@@ -132,13 +133,17 @@ for (let frameFile of frameFiles) {
             let v = imgData.data[idx];
             let fdi = imgData.width * y + x;
 
-            if (v > 128) {
-                row += "▓▓";
-                pixelDataArray[fdi] = 65;
+            if (v < 64) {
+                pixelDataArray[fdi] = 65; // A
+            } else if (v < 128) {
+                pixelDataArray[fdi] = 66; // B
+            } else if (v < 192) {
+                pixelDataArray[fdi] = 67; // C
             } else {
-                row += "  ";
-                pixelDataArray[fdi] = 66;
+                pixelDataArray[fdi] = 68; // D
             }
+
+
         }
         frame += row + "\n";
     }
@@ -160,18 +165,21 @@ console.log("Preparing...");
 
 let frames = [];
 
+const pixelColors = {
+    "A": "  ",
+    "B": "░░",
+    "C": "▒▒",
+    "D": "▒▒"
+}
+
 for (let frameData of videoData.data) {
     let frame = "";
     for (let y=0; y<videoData.height; y++) {
         let row = "";
         for (let x=0; x<videoData.width; x++) {
-            let pixel = frameData[videoData.width * y + x];
+            let pixelCode = frameData[videoData.width * y + x];
 
-            if (pixel === "A") {
-                row+="▓▓"
-            } else {
-                row+="  ";
-            }
+            row+=pixelColors[pixelCode];
         }
         frame+=row+"\\n";
     }
