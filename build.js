@@ -183,7 +183,7 @@ for (let frameData of videoData.data) {
         }
         frame+=row+"\\n";
     }
-    frames.push(frame.trim());
+    frames.push(frame.trimRight());
 }
 
 let frameNo = 0;
